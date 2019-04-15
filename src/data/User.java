@@ -1,7 +1,10 @@
 package data;
 
 /*
-bd version fields are the same
+bd version
+id - autoincrement integer
+name - text
+password - text
  */
 
 import javafx.scene.image.Image;
