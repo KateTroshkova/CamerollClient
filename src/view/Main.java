@@ -15,9 +15,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         primaryStage.setTitle("cameroll");
-        primaryStage.getIcons().add(new Image(R.image.ic_launcher));
-        Scene mainScene=new Scene(root, 1600, 800);
-        FlowPane grid=(FlowPane)mainScene.lookup("#grid_parent");
+      //  primaryStage.getIcons().add(new Image(R.image.ic_launcher));
+        Scene mainScene=new MainScene(root, 1600, 800);
+        //FlowPane grid=(FlowPane)mainScene.lookup("#grid_parent");
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }
