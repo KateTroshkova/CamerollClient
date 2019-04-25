@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -7,15 +8,14 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 
-<BorderPane prefHeight="460.0"
-            prefWidth="780.0"
-            xmlns="http://javafx.com/javafx/8.0.172-ea"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="view.MainScene">
+<BorderPane prefHeight="460.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScene">
    <center>
       <ScrollPane prefHeight="230.0" prefWidth="780.0" BorderPane.alignment="CENTER">
         <content>
-          <FlowPane minHeight="0.0" minWidth="0.0" prefHeight="230.0" prefWidth="1560.0" fx:id="movies" />
+          <FlowPane fx:id="movies" minHeight="0.0" minWidth="0.0" prefHeight="460.0" prefWidth="1560.0">
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding></FlowPane>
         </content>
       </ScrollPane>
    </center>
@@ -33,8 +33,14 @@
    <bottom>
       <ScrollPane prefHeight="140.0" prefWidth="780.0" BorderPane.alignment="CENTER">
         <content>
-          <FlowPane minHeight="0.0" minWidth="0.0" prefHeight="140" prefWidth="780" />
+          <FlowPane fx:id="cinemas" minHeight="0.0" minWidth="0.0" prefHeight="140" prefWidth="1560">
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding></FlowPane>
         </content>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </ScrollPane>
    </bottom>
 </BorderPane>

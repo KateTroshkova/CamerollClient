@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
 import presenter.IMVPContract;
 import presenter.MainScenePresenter;
+import view.customView.CinemaView;
+import view.customView.MovieView;
 
 /*
 Общение с gui происходит через контроллер.
@@ -19,7 +21,10 @@ public class MainScene implements IMVPContract.IMainScene{
 
     @FXML
     private FlowPane movies;
+    @FXML
+    private FlowPane cinemas;
     private Movie[] mData;
+    private Cinema[] cData;
     private MainScenePresenter presenter;
 
     @Override
@@ -30,18 +35,29 @@ public class MainScene implements IMVPContract.IMainScene{
 
     @Override
     public void onCinemaDataReady(Cinema[] data) {
+        this.cData=data;
+        initialize();
     }
 
     @FXML
     public void initialize(){
-        if (mData==null) {
+        if (mData==null && cData==null) {
             presenter = new MainScenePresenter();
             presenter.attachView(this);
             presenter.viewIsReady();
         }
         else {
-            for (int i = 0; i < mData.length; i++) {
-                movies.getChildren().add(new MovieView(mData[i]));
+            movies.getChildren().clear();
+            if (mData!=null) {
+                for (int i = 0; i < mData.length; i++) {
+                    movies.getChildren().add(new MovieView(mData[i]));
+                }
+            }
+            cinemas.getChildren().clear();
+            if (cData!=null) {
+                for (int i = 0; i < cData.length; i++) {
+                    cinemas.getChildren().add(new CinemaView(cData[i]));
+                }
             }
         }
     }

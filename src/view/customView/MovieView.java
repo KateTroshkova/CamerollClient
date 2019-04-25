@@ -1,4 +1,4 @@
-package view;
+package view.customView;
 
 import data.Movie;
 import javafx.fxml.FXML;
