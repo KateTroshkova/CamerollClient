@@ -26,6 +26,12 @@
             <items>
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
+              <items>
+                  <MenuItem mnemonicParsing="false" text="Sign In" />
+              </items>
+              <items>
+                  <MenuItem mnemonicParsing="false" text="Sign Up" />
+              </items>
           </Menu>
         </menus>
       </MenuBar>
