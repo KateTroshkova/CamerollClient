@@ -21,6 +21,15 @@ public class Cinema implements Serializable, IRandomShow {
     private String name;
     private String address;
 
+    public Cinema(){
+
+    }
+
+    public Cinema(String name, String address){
+        this.name=name;
+        this.address=address;
+    }
+
     public long getId() {
         return id;
     }

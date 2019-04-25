@@ -4,20 +4,15 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
-import res.R;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("main_screen.fxml"));
         primaryStage.setTitle("cameroll");
-      //  primaryStage.getIcons().add(new Image(R.image.ic_launcher));
-        Scene mainScene=new MainScene(root, 1600, 800);
-        //FlowPane grid=(FlowPane)mainScene.lookup("#grid_parent");
+        Scene mainScene=new Scene(root, 1600, 800);
         primaryStage.setScene(mainScene);
         primaryStage.show();
     }

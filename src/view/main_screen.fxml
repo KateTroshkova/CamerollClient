@@ -7,11 +7,15 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 
-<BorderPane prefHeight="460.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainScene">
+<BorderPane prefHeight="460.0"
+            prefWidth="780.0"
+            xmlns="http://javafx.com/javafx/8.0.172-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="view.MainScene">
    <center>
       <ScrollPane prefHeight="230.0" prefWidth="780.0" BorderPane.alignment="CENTER">
         <content>
-          <FlowPane minHeight="0.0" minWidth="0.0" prefHeight="460.0" prefWidth="780.0" />
+          <FlowPane minHeight="0.0" minWidth="0.0" prefHeight="230.0" prefWidth="1560.0" fx:id="movies" />
         </content>
       </ScrollPane>
    </center>
@@ -29,7 +33,7 @@
    <bottom>
       <ScrollPane prefHeight="140.0" prefWidth="780.0" BorderPane.alignment="CENTER">
         <content>
-          <FlowPane minHeight="0.0" minWidth="0.0" prefHeight="460.0" prefWidth="780.0" />
+          <FlowPane minHeight="0.0" minWidth="0.0" prefHeight="140" prefWidth="780" />
         </content>
       </ScrollPane>
    </bottom>

@@ -28,6 +28,18 @@ public class Movie implements Serializable, IRandomShow {
     private int year;
     private String country;
 
+    public Movie(){
+
+    }
+
+    public Movie(String name, String description, String actors, int year, String country){
+        this.name=name;
+        this.description=description;
+        this.actors=actors;
+        this.year=year;
+        this.country=country;
+    }
+
     public long getId() {
         return id;
     }
