@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root prefHeight="240" prefWidth="1560" style="-fx-border-color: #000000; -fx-border-width: 2; -fx-background-color: #ffffff;" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+
+    </children>
+    <effect>
+        <DropShadow />
+    </effect>
+    <padding>
+        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+    </padding>
+   <center>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="220.0" prefWidth="637.0">
+               <children>
+                  <Label text="Label" />
+                  <Label text="Label" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="220.0" prefWidth="669.0">
+               <children>
+                  <Label text="Label" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <right>
+      <Label text="Label" BorderPane.alignment="CENTER" />
+   </right>
+   <left>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+   </left>
+</fx:root>
