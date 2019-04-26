@@ -1,6 +1,7 @@
 package data;
 
 import javafx.scene.image.Image;
+import model.RandomImageGenerator;
 
 import java.io.Serializable;
 
@@ -56,6 +57,6 @@ public class Cinema implements Serializable, IRandomShow {
 
     @Override
     public Image getImage() {
-        return null;
+        return RandomImageGenerator.getInstance().getImage();
     }
 }

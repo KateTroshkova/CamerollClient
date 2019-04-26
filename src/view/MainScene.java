@@ -2,7 +2,9 @@ package view;
 
 import data.Cinema;
 import data.Movie;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import presenter.IMVPContract;
 import presenter.MainScenePresenter;
@@ -50,7 +52,11 @@ public class MainScene implements IMVPContract.IMainScene{
             movies.getChildren().clear();
             if (mData!=null) {
                 for (int i = 0; i < mData.length; i++) {
-                    movies.getChildren().add(new MovieView(mData[i]));
+                    MovieView view=new MovieView(mData[i]);
+                    view.setOnMouseClicked(event -> {
+
+                    });
+                    movies.getChildren().add(view);
                 }
             }
             cinemas.getChildren().clear();

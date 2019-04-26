@@ -38,8 +38,7 @@ public class CinemaView extends FlowPane {
     @FXML
     private void initialize(){
         text.setText(data.getName());
-        Image res = new Image(R.image.ic_cinema);
-        image.setImage(res);
+        image.setImage(data.getImage());
         image.setCache(true);
     }
 }

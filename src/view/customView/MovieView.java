@@ -36,8 +36,7 @@ public class MovieView extends FlowPane{
     @FXML
     private void initialize(){
         text.setText(data.getName());
-        Image res = new Image("res/drawable/back.jpg");
-        image.setImage(res);
+        image.setImage(data.getImage());
         image.setCache(true);
     }
 }
