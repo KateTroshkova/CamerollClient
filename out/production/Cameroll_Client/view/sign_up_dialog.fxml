@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SignUpScene">
+   <top>
+      <Label text="Sign Up" textAlignment="CENTER" textFill="#67d5fa" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </BorderPane.margin>
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Name" />
+            <TextArea fx:id="nameText" prefHeight="200.0" prefWidth="200.0" />
+            <Label fx:id="nameErrorText" alignment="CENTER" contentDisplay="CENTER" text="Wrong name" textAlignment="CENTER" textFill="#fe9327" visible="false" />
+            <Label text="Password" />
+            <TextArea fx:id="passwordText" prefHeight="200.0" prefWidth="200.0" />
+            <Label fx:id="passworErrordText" text="Password cannot contain..." textFill="#fe9327" visible="false" />
+            <Label text="Confirm password" />
+            <TextArea fx:id="confirmText" prefHeight="200.0" prefWidth="200.0" />
+            <Label fx:id="confirmErrordText" text="Passwords have to be equal" textFill="#fe9327" visible="false" />
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <left>
+                  <CheckBox fx:id="isManagerCheck" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+               </left>
+               <top>
+                  <Label text="Is manager?" BorderPane.alignment="CENTER_LEFT" />
+               </top>
+               <center>
+                  <TextArea fx:id="additionalText" prefHeight="200.0" prefWidth="200.0" visible="false" BorderPane.alignment="CENTER" />
+               </center>
+               <bottom>
+                  <Label fx:id="additionalErrorText" text="Wrong password" textFill="#fe9327" visible="false" BorderPane.alignment="CENTER_LEFT" />
+               </bottom>
+            </BorderPane>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="okButton" mnemonicParsing="false" text="Ok" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel" />
+         </children>
+      </HBox>
+   </bottom>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+   </padding>
+</BorderPane>

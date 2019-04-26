@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Circle?>
+
+<fx:root prefHeight="40" prefWidth="40" style="-fx-border-color: #000000; -fx-border-width: 2; -fx-background-color: #ffffff;" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+
+   </children>
+   <effect>
+      <DropShadow />
+   </effect>
+   <padding>
+      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+   </padding>
+   <center>
+      <Circle fx:id="seatShape" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" BorderPane.alignment="CENTER" />
+   </center>
+</fx:root>

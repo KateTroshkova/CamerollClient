@@ -14,6 +14,7 @@ public class Main extends Application {
         primaryStage.setTitle("cameroll");
         Scene mainScene=new Scene(root, 1600, 800);
         primaryStage.setScene(mainScene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

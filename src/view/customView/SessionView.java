@@ -14,7 +14,7 @@ import res.R;
 
 import java.io.IOException;
 
-public class SessionView{
+public class SessionView extends BorderPane{
 
     @FXML
     private ImageView image;
@@ -37,6 +37,7 @@ public class SessionView{
         super();
         this.data=session;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view_session.fxml"));
+        fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
