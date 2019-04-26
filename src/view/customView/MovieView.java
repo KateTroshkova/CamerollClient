@@ -33,6 +33,10 @@ public class MovieView extends FlowPane{
         initialize();
     }
 
+    public Movie getData(){
+        return data;
+    }
+
     @FXML
     private void initialize(){
         text.setText(data.getName());

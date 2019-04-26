@@ -35,6 +35,10 @@ public class CinemaView extends FlowPane {
         initialize();
     }
 
+    public Cinema getData(){
+        return data;
+    }
+
     @FXML
     private void initialize(){
         text.setText(data.getName());
