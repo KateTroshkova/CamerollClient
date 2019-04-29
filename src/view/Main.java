@@ -2,6 +2,7 @@ package view;
 
 import data.Cinema;
 import data.Movie;
+import data.Session;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -28,11 +29,20 @@ public class Main extends Application implements IMoveListener {
 
     @Override
     public void mainToPreview(Movie movie) {
-        scene.setRoot(new PreviewScene(movie));
+        PreviewScene previewScene=new PreviewScene(movie);
+        previewScene.addMoveListener(this);
+        scene.setRoot(previewScene);
     }
 
     @Override
     public void mainToPreview(Cinema cinema) {
-        scene.setRoot(new PreviewScene(cinema));
+        PreviewScene previewScene=new PreviewScene(cinema);
+        previewScene.addMoveListener(this);
+        scene.setRoot(previewScene);
+    }
+
+    @Override
+    public void previewToChoose(Session session) {
+        scene.setRoot(new ChooseScene(session));
     }
 }

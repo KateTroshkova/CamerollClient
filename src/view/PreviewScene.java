@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import presenter.IMVPContract;
+import presenter.IMoveListener;
 import presenter.PreviewScenePresenter;
 import view.customView.SessionView;
 
@@ -23,6 +24,7 @@ public class PreviewScene extends BorderPane implements IMVPContract.IPreviewSce
     private VBox sessions;
 
     private Session[] sData;
+    private ArrayList<IMoveListener> listeners;
 
     public PreviewScene(Movie movie){
        loadFXML();
@@ -32,8 +34,13 @@ public class PreviewScene extends BorderPane implements IMVPContract.IPreviewSce
         loadFXML();
     }
 
+    public void addMoveListener(IMoveListener listener){
+        listeners.add(listener);
+    }
+
     private void loadFXML(){
         presenter=new PreviewScenePresenter();
+        listeners=new ArrayList<>();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("preview_screen.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -83,7 +90,9 @@ public class PreviewScene extends BorderPane implements IMVPContract.IPreviewSce
             for (Session session : sData) {
                 SessionView view = new SessionView(session);
                 view.setOnMouseClicked(event -> {
-
+                    for(IMoveListener listener:listeners){
+                        listener.previewToChoose(session);
+                    }
                 });
                 sessions.getChildren().add(view);
             }
