@@ -3,12 +3,11 @@ package view;
 import data.Cinema;
 import data.Movie;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import presenter.IMoveListener;
 
-public class Main extends Application implements IMoveListener{
+public class Main extends Application implements IMoveListener {
 
     private Scene scene;
 
@@ -29,11 +28,11 @@ public class Main extends Application implements IMoveListener{
 
     @Override
     public void mainToPreview(Movie movie) {
-        scene.setRoot(new PreviewScene());
+        scene.setRoot(new PreviewScene(movie));
     }
 
     @Override
     public void mainToPreview(Cinema cinema) {
-        scene.setRoot(new PreviewScene());
+        scene.setRoot(new PreviewScene(cinema));
     }
 }

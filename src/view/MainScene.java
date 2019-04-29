@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import presenter.IMVPContract;
+import presenter.IMoveListener;
 import presenter.MainScenePresenter;
 import view.customView.CinemaView;
 import view.customView.MovieView;
