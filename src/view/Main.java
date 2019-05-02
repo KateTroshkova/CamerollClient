@@ -11,6 +11,7 @@ import presenter.IMoveListener;
 public class Main extends Application implements IMoveListener {
 
     private Scene scene;
+    private Stage stage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -23,6 +24,7 @@ public class Main extends Application implements IMoveListener {
         primaryStage.show();
         primaryStage.setMinWidth(scene.getWidth());
         primaryStage.setMinHeight(scene.getHeight());
+        this.stage=primaryStage;
     }
 
     public static void main(String[] args) {
@@ -45,6 +47,10 @@ public class Main extends Application implements IMoveListener {
 
     @Override
     public void previewToChoose(Session session) {
-        scene.setRoot(new ChooseScene(session));
+        ChooseScene chooseScene=new ChooseScene(session);
+        scene.setRoot(chooseScene);
+        stage.sizeToScene();
+        stage.setMinWidth(scene.getWidth());
+        stage.setMinHeight(scene.getHeight());
     }
 }

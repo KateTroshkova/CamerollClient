@@ -16,8 +16,6 @@ public class ChooseScene extends BorderPane{
     @FXML
     private AnchorPane hallLayout;
 
-    private Place[][] hall;
-
     private Session data;
 
     public ChooseScene(Session session){
@@ -35,14 +33,36 @@ public class ChooseScene extends BorderPane{
 
     @FXML
     private void initialize(){
-        hall=new Place[5][5];
-        for(int i=0; i<5; i++){
-            for(int j=0; j<5; j++){
-                Place place=new Place(i*80, j*80, PLACE_STATUS.STATUS_FREE);
+        String pattern[]=data.getHall().getPlacePattern().split(";");
+        int width=Integer.valueOf(pattern[0]);
+        int height=Integer.valueOf(pattern[1]);
+        int count=2;
+        for(int i=0; i<width; i++){
+            for(int j=0; j<height; j++){
+                Place place=null;
+                switch(pattern[count]){
+                    case "-2":{
+                        place=new Place(j*80, i*80, PLACE_STATUS.STATUS_NOT_EXIST);
+                        break;
+                    }
+                    case "-1":{
+                        place=new Place(j*80, i*80, PLACE_STATUS.STATUS_TAKEN);
+                        break;
+                    }
+                    case "0":{
+                        place=new Place(j*80, i*80, PLACE_STATUS.STATUS_FREE);
+                        break;
+                    }
+                    default:{
+                        place=new Place(j*80, i*80, PLACE_STATUS.STATUS_BOOKED);
+                        break;
+                    }
+                }
                 SeatView view=new SeatView(place);
-                view.setLayoutX(i*80);
-                view.setLayoutY(j*80);
+                view.setLayoutX(j*80);
+                view.setLayoutY(i*80);
                 hallLayout.getChildren().add(view);
+                count++;
             }
         }
     }

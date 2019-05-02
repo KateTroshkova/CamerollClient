@@ -28,19 +28,19 @@ public class Place{
     }
 
     public boolean isExist(){
-        return true;
+        return status!=PLACE_STATUS.STATUS_NOT_EXIST;
     }
 
     public boolean isTaken(){
-        return false;
+        return status==PLACE_STATUS.STATUS_TAKEN;
     }
 
     public boolean isBooked(){
-        return false;
+        return status==PLACE_STATUS.STATUS_BOOKED;
     }
 
     public boolean isFree(){
-        return true;
+        return status==PLACE_STATUS.STATUS_FREE;
     }
 
     public void setTaken(){

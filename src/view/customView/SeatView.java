@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import res.R;
 
@@ -40,6 +41,18 @@ public class SeatView extends BorderPane{
 
     @FXML
     private void initialize(){
-        seatShape.setFill(javafx.scene.paint.Color.BLUE);
+        seatShape.setStrokeWidth(0);
+        if (data.isFree()){
+            seatShape.setFill(javafx.scene.paint.Color.BLUE);
+        }
+        if (data.isBooked()){
+            seatShape.setFill(Color.ORANGE);
+        }
+        if (data.isTaken()){
+            seatShape.setFill(javafx.scene.paint.Color.RED);
+        }
+        if (!data.isExist()){
+            seatShape.setFill(javafx.scene.paint.Color.WHITE);
+        }
     }
 }
