@@ -19,8 +19,10 @@ public class Main extends Application implements IMoveListener {
         mainScene.addMoveListener(this);
         scene=new Scene(mainScene, 1600, 800);
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
+        primaryStage.sizeToScene();
         primaryStage.show();
+        primaryStage.setMinWidth(scene.getWidth());
+        primaryStage.setMinHeight(scene.getHeight());
     }
 
     public static void main(String[] args) {

@@ -12,9 +12,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ScrollPane?>
 <fx:root prefHeight="460.0" prefWidth="780.0" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-   </center>
    <top>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
@@ -56,7 +55,11 @@
             </HBox>
          </top>
          <center>
-            <VBox fx:id="sessions" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+             <ScrollPane prefHeight="200.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+             <content>
+            <VBox fx:id="sessions" prefHeight="600.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
+             </content>
+             </ScrollPane>
          </center>
       </BorderPane>
    </center>

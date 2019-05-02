@@ -5,6 +5,8 @@ import data.Hall;
 import data.Movie;
 import data.Session;
 
+import java.util.HashSet;
+
 public class PreviewScenePresenter extends BasePresenter<IMVPContract.IPreviewScene> {
 
     private Movie avengers=new Movie("Мстители: Финал", "Оставшиеся в живых члены команды Мстителей и их союзники должны разработать новый план, который поможет противостоять разрушительным действиям могущественного титана Таноса. После наиболее масштабной и трагической битвы в истории они не могут допустить ошибку.",
@@ -49,6 +51,10 @@ public class PreviewScenePresenter extends BasePresenter<IMVPContract.IPreviewSc
 
     @Override
     public void viewIsReady() {
+        HashSet<String> uniqueMovie=new HashSet<>();
+        HashSet<String> uniqueCinema=new HashSet<>();
+        HashSet<String> uniqueDate=new HashSet<>();
+        HashSet<String> uniqueTime=new HashSet<>();
         hall1.setPlacePattern(pattern1);
         hall1.setName("Зал 1");
         hall2.setPlacePattern(pattern2);
@@ -86,7 +92,17 @@ public class PreviewScenePresenter extends BasePresenter<IMVPContract.IPreviewSc
         sessions[17]=new Session(lion, kino, hall7, "20.00", "10.08.2019", 250);
         sessions[18]=new Session(king, victory, hall6, "10.00", "15.07.2019", 300);
         sessions[19]=new Session(king, victory, hall8, "10.00", "15.07.2019", 300);
+        for(Session s:sessions){
+            uniqueMovie.add(s.getMovie().getName());
+            uniqueCinema.add(s.getCinema().getName());
+            uniqueDate.add(s.getDate());
+            uniqueTime.add(s.getTime());
+        }
         getView().onSessionDataReady(sessions);
+        getView().setMovies(uniqueMovie);
+        getView().setCinemas(uniqueCinema);
+        getView().setDates(uniqueDate);
+        getView().setTimes(uniqueTime);
     }
 
     public void onFilterClick(String movie, String cinema, String hall, String time, String date){

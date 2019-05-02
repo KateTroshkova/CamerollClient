@@ -5,6 +5,7 @@ import data.Movie;
 import data.Session;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public interface IMVPContract {
 
@@ -15,11 +16,11 @@ public interface IMVPContract {
 
     interface IPreviewScene extends IMVPView{
         void onSessionDataReady(Session[] data);
-        void setMovies(ArrayList<String> data);
-        void setCinemas(ArrayList<String> data);
-        void setHalls(ArrayList<String> data);
-        void setDates(ArrayList<String> data);
-        void setTimes(ArrayList<String> data);
+        void setMovies(HashSet<String> data);
+        void setCinemas(HashSet<String> data);
+        void setHalls(HashSet<String> data);
+        void setDates(HashSet<String> data);
+        void setTimes(HashSet<String> data);
     }
 
 }

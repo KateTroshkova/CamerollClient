@@ -19,15 +19,11 @@ public class SessionView extends BorderPane{
     @FXML
     private ImageView image;
     @FXML
-    private Label movieName;
+    private Label movieInfo;
     @FXML
-    private Label cinemaName;
+    private Label cinemaInfo;
     @FXML
-    private Label hallName;
-    @FXML
-    private Label time;
-    @FXML
-    private Label date;
+    private Label timeInfo;
     @FXML
     private Label price;
 
@@ -49,6 +45,10 @@ public class SessionView extends BorderPane{
 
     @FXML
     private void initialize(){
-
+        image.setImage(data.getCinema().getImage());
+        movieInfo.setText(data.getMovie().getName());
+        cinemaInfo.setText(data.getCinema().getName()+"\n"+data.getHall().getName());
+        timeInfo.setText(data.getDate()+"\n"+data.getTime());
+        price.setText(data.getPrice()+"руб.");
     }
 }
