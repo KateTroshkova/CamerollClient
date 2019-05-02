@@ -24,6 +24,17 @@ public class Session implements Serializable, Comparator<Session> {
     private String date;
     private int price;
 
+    public Session(){}
+
+    public Session(Movie movie, Cinema cinema, Hall hall, String time, String date, int price) {
+        this.movie = movie;
+        this.cinema = cinema;
+        this.hall = hall;
+        this.time = time;
+        this.date = date;
+        this.price = price;
+    }
+
     public long getId() {
         return id;
     }
