@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SignUpScene">
+<fx:root prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" type="javafx.scene.layout.BorderPane">
    <top>
       <Label text="Sign Up" textAlignment="CENTER" textFill="#67d5fa" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -28,10 +28,10 @@
             <Label fx:id="nameErrorText" alignment="CENTER" contentDisplay="CENTER" text="Wrong name" textAlignment="CENTER" textFill="#fe9327" visible="false" />
             <Label text="Password" />
             <TextArea fx:id="passwordText" prefHeight="200.0" prefWidth="200.0" />
-            <Label fx:id="passworErrordText" text="Password cannot contain..." textFill="#fe9327" visible="false" />
+            <Label fx:id="passwordErrorText" text="Password cannot contain..." textFill="#fe9327" visible="false" />
             <Label text="Confirm password" />
             <TextArea fx:id="confirmText" prefHeight="200.0" prefWidth="200.0" />
-            <Label fx:id="confirmErrordText" text="Passwords have to be equal" textFill="#fe9327" visible="false" />
+            <Label fx:id="confirmErrorText" text="Passwords have to be equal" textFill="#fe9327" visible="false" />
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <left>
                   <CheckBox fx:id="isManagerCheck" mnemonicParsing="false" BorderPane.alignment="CENTER" />
@@ -49,18 +49,10 @@
          </children>
       </VBox>
    </center>
-   <bottom>
-      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="okButton" mnemonicParsing="false" text="Ok" />
-            <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel" />
-         </children>
-      </HBox>
-   </bottom>
    <opaqueInsets>
       <Insets />
    </opaqueInsets>
    <padding>
       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
    </padding>
-</BorderPane>
+</fx:root>
