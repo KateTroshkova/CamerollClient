@@ -21,7 +21,7 @@ import view.customView.SessionView;
 import java.io.IOException;
 import java.util.*;
 
-public class PreviewScene extends BorderPane implements IMVPContract.IPreviewScene{
+public class PreviewScene extends SignableScene implements IMVPContract.IPreviewScene{
 
     private PreviewScenePresenter presenter;
     @FXML
@@ -79,6 +79,7 @@ public class PreviewScene extends BorderPane implements IMVPContract.IPreviewSce
         }
         presenter.attachView(this);
         presenter.viewIsReady();
+        registerMenuAction();
     }
 
     @Override

@@ -10,11 +10,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import presenter.IMVPContract;
 import view.customView.SeatView;
 
 import java.io.IOException;
 
-public class ChooseScene extends BorderPane{
+public class ChooseScene extends SignableScene implements IMVPContract.IChooseScene{
 
     @FXML
     private AnchorPane hallLayout;
@@ -32,6 +33,7 @@ public class ChooseScene extends BorderPane{
             throw new RuntimeException(exception);
         }
         initialize();
+        registerMenuAction();
     }
 
     @FXML
@@ -76,5 +78,55 @@ public class ChooseScene extends BorderPane{
                 count++;
             }
         }
+    }
+
+    @Override
+    public void openBuyDialog() {
+
+    }
+
+    @Override
+    public void markPlace() {
+
+    }
+
+    @Override
+    public void updatePlace() {
+
+    }
+
+    @Override
+    public void cancelMark() {
+
+    }
+
+    @Override
+    public void showError(String error) {
+
+    }
+
+    @Override
+    public void openSignInDialog() {
+
+    }
+
+    @Override
+    public void openSignUpDialog() {
+
+    }
+
+    @Override
+    public void closeDialog() {
+
+    }
+
+    @Override
+    public void blockBuyButton() {
+
+    }
+
+    @Override
+    public void enableBuyButton() {
+
     }
 }

@@ -25,10 +25,10 @@
                   <MenuItem mnemonicParsing="false" text="Close" />
                </items>
                <items>
-                  <MenuItem mnemonicParsing="false" text="Sign In" />
+                  <MenuItem fx:id="signInButton" mnemonicParsing="false" text="Sign In" />
                </items>
                <items>
-                  <MenuItem mnemonicParsing="false" text="Sign Up" />
+                  <MenuItem fx:id="signUpButton" mnemonicParsing="false" text="Sign Up" />
                </items>
             </Menu>
          </menus>
