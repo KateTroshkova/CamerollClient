@@ -8,6 +8,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import presenter.SignPresenter;
 
 import java.util.Optional;
 
@@ -18,7 +19,11 @@ public class SignableScene extends BorderPane {
     @FXML
     private MenuItem signUpButton;
 
+    private SignPresenter presenter;
+
     protected void registerMenuAction(){
+        presenter=new SignPresenter();
+        presenter.viewIsReady();
         signInButton.setOnAction(event -> {
             Dialog<Entrance> dialog = new Dialog<>();
             dialog.setTitle("Login");
@@ -40,7 +45,7 @@ public class SignableScene extends BorderPane {
             });
             Optional<Entrance> result = dialog.showAndWait();
             result.ifPresent(usernamePassword -> {
-                System.out.println("Username=" + usernamePassword.getName() + ", Password=" + usernamePassword.getPassword());
+                presenter.enter(result.get());
             });
         });
         signUpButton.setOnAction(event -> {
@@ -68,7 +73,7 @@ public class SignableScene extends BorderPane {
             });
             Optional<Registration> result = dialog.showAndWait();
             result.ifPresent(usernamePassword -> {
-                System.out.println("Username=" + usernamePassword.getName() + ", Password=" + usernamePassword.getPassword());
+                presenter.register(result.get());
             });
         });
     }

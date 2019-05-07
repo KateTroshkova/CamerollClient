@@ -13,6 +13,7 @@ public class User implements IRandomShow {
     private long id;
     private String name;
     private String password;
+    private boolean isManager;
 
     public long getId() {
         return id;
@@ -39,7 +40,11 @@ public class User implements IRandomShow {
     }
 
     public boolean isManager(){
-        return false;
+        return isManager;
+    }
+
+    public void setManager(boolean manager){
+        isManager=manager;
     }
 
     @Override

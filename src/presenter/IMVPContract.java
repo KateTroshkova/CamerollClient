@@ -41,7 +41,6 @@ public interface IMVPContract {
     }
 
     interface ISignScene extends IMVPView{
-        void closeDialog();
         void showNameError();
         void showPasswordError();
         void showAdditionalPasswordError();
