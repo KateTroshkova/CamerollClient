@@ -58,6 +58,16 @@ public class MainScene extends BorderPane implements IMVPContract.IMainScene{
         initialize();
     }
 
+    @Override
+    public void openSignInDialog() {
+
+    }
+
+    @Override
+    public void openSignUpDialog() {
+
+    }
+
     public void addMoveListener(IMoveListener listener){
         listeners.add(listener);
     }

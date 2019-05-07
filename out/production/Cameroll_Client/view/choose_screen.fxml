@@ -34,9 +34,6 @@
          </menus>
       </MenuBar>
    </top>
-   <left>
-      <Label text="Label" BorderPane.alignment="CENTER" />
-   </left>
    <right>
       <Label text="Label" BorderPane.alignment="CENTER" />
    </right>

@@ -12,6 +12,8 @@ public interface IMVPContract {
     interface IMainScene extends IMVPView{
         void onMovieDataReady(Movie[] data);
         void onCinemaDataReady(Cinema[] data);
+        void openSignInDialog();
+        void openSignUpDialog();
     }
 
     interface IPreviewScene extends IMVPView{
@@ -21,6 +23,29 @@ public interface IMVPContract {
         void setHalls(HashSet<String> data);
         void setDates(HashSet<String> data);
         void setTimes(HashSet<String> data);
+        void openSignInDialog();
+        void openSignUpDialog();
+    }
+
+    interface IChooseScene extends IMVPView{
+        void openBuyDialog();
+        void markPlace();
+        void updatePlace();
+        void cancelMark();
+        void showError(String error);
+        void openSignInDialog();
+        void openSignUpDialog();
+        void closeDialog();
+        void blockBuyButton();
+        void enableBuyButton();
+    }
+
+    interface ISignScene extends IMVPView{
+        void closeDialog();
+        void showNameError();
+        void showPasswordError();
+        void showAdditionalPasswordError();
+        void showConfirmError();
     }
 
 }

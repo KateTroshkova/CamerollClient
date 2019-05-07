@@ -3,8 +3,11 @@ package view;
 import data.PLACE_STATUS;
 import data.Place;
 import data.Session;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import view.customView.SeatView;
@@ -61,6 +64,14 @@ public class ChooseScene extends BorderPane{
                 SeatView view=new SeatView(place);
                 view.setLayoutX(j*80);
                 view.setLayoutY(i*80);
+                view.setOnMouseClicked(event -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Test Connection");
+                    alert.setHeaderText("Results:");
+                    alert.setContentText("Connect to the database successfully!");
+
+                    alert.showAndWait();
+                });
                 hallLayout.getChildren().add(view);
                 count++;
             }

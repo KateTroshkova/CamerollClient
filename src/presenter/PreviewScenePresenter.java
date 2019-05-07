@@ -108,4 +108,12 @@ public class PreviewScenePresenter extends BasePresenter<IMVPContract.IPreviewSc
     public void onFilterClick(String movie, String cinema, String hall, String time, String date){
 
     }
+
+    public void signInClick(){
+
+    }
+
+    public void signUpClick(){
+
+    }
 }

@@ -47,4 +47,12 @@ public class MainScenePresenter extends BasePresenter<IMVPContract.IMainScene> {
         cData[3]=kino;
         getView().onCinemaDataReady(cData);
     }
+
+    public void signInClick(){
+
+    }
+
+    public void signUpClick(){
+
+    }
 }

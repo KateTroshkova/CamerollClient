@@ -122,6 +122,16 @@ public class PreviewScene extends BorderPane implements IMVPContract.IPreviewSce
         timeSort.getItems().addAll(sortedData);
     }
 
+    @Override
+    public void openSignInDialog() {
+
+    }
+
+    @Override
+    public void openSignUpDialog() {
+
+    }
+
     @FXML
     private void initialize(){
         if (sData!=null) {
