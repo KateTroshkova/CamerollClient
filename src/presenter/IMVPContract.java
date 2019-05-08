@@ -1,8 +1,7 @@
 package presenter;
 
-import data.Cinema;
-import data.Movie;
-import data.Session;
+import data.*;
+import view.customView.SeatView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -28,9 +27,9 @@ public interface IMVPContract {
     }
 
     interface IChooseScene extends IMVPView{
-        void openBuyDialog();
-        void markPlace();
-        void updatePlace();
+        void openBuyDialog(SeatView seat);
+        void markPlace(int row, int column);
+        void updatePlace(int row, int column, PLACE_STATUS place_status);
         void cancelMark();
         void showError(String error);
         void openSignInDialog();

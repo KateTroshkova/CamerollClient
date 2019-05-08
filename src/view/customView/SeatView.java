@@ -1,9 +1,6 @@
 package view.customView;
 
-import data.Cinema;
-import data.Movie;
-import data.Place;
-import data.Session;
+import data.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -35,6 +32,35 @@ public class SeatView extends BorderPane{
             fxmlLoader.load();
         } catch (IOException exception) {
             throw new RuntimeException(exception);
+        }
+        initialize();
+    }
+
+    public Place getData(){
+        return data;
+    }
+
+    public void mark(){
+        seatShape.setFill(Color.BLACK);
+    }
+
+    public void updateState(PLACE_STATUS state){
+        switch(state){
+            case STATUS_FREE:{
+                data.setFree();
+                break;
+            }
+            case STATUS_BOOKED:{
+                data.setBooked();
+                break;
+            }
+            case STATUS_TAKEN:{
+                data.setTaken();
+                break;
+            }
+            default:{
+                break;
+            }
         }
         initialize();
     }
