@@ -25,10 +25,10 @@
          <children>
             <Label text="Name" />
             <TextArea fx:id="nameText" prefHeight="200.0" prefWidth="200.0" />
-            <Label fx:id="nameErrorText" alignment="CENTER" contentDisplay="CENTER" text="Wrong name" textAlignment="CENTER" textFill="#fe9327" visible="false" />
+            <Label fx:id="nameErrorText" alignment="CENTER" contentDisplay="CENTER" text="Name should has length between 3 and 24 symbols and starts with letter" textAlignment="CENTER" textFill="#fe9327" visible="false" />
             <Label text="Password" />
             <TextArea fx:id="passwordText" prefHeight="200.0" prefWidth="200.0" />
-            <Label fx:id="passwordErrorText" text="Password cannot contain..." textFill="#fe9327" visible="false" />
+            <Label fx:id="passwordErrorText" text="Password should has length between 3 and 24 symbols and contains letters only" textFill="#fe9327" visible="false" />
             <Label text="Confirm password" />
             <TextArea fx:id="confirmText" prefHeight="200.0" prefWidth="200.0" />
             <Label fx:id="confirmErrorText" text="Passwords have to be equal" textFill="#fe9327" visible="false" />

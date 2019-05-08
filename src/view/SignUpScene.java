@@ -66,18 +66,18 @@ public class SignUpScene extends BorderPane{
     }
 
     public void setNameError(boolean error){
-        nameErrorText.setVisible(error);
+        nameErrorText.setVisible(!error);
     }
 
     public void setPasswordError(boolean error){
-        passwordErrorText.setVisible(error);
+        passwordErrorText.setVisible(!error);
     }
 
     public void setConfirmError(boolean error){
-        confirmErrorText.setVisible(error);
+        confirmErrorText.setVisible(!error);
     }
 
     public void setAdditionalError(boolean error){
-        additionalErrorText.setVisible(error);
+        additionalErrorText.setVisible(!error);
     }
 }

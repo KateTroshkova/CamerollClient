@@ -32,11 +32,11 @@ public class SignInScene extends BorderPane{
     }
 
     public void setNameError(boolean error){
-        nameErrorText.setVisible(error);
+        nameErrorText.setVisible(!error);
     }
 
     public void setPasswordError(boolean error){
-        passwordErrorText.setVisible(error);
+        passwordErrorText.setVisible(!error);
     }
 
     public TextArea getNameText() {

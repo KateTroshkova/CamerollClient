@@ -8,16 +8,21 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import model.InputValidation;
+import presenter.IMVPContract;
 import presenter.SignPresenter;
 
 import java.util.Optional;
 
-public class SignableScene extends BorderPane {
+public class SignableScene extends BorderPane implements IMVPContract.ISignScene{
 
     @FXML
     private MenuItem signInButton;
     @FXML
     private MenuItem signUpButton;
+
+    private SignInScene inContent;
+    private SignUpScene upContent;
 
     private SignPresenter presenter;
 
@@ -31,10 +36,10 @@ public class SignableScene extends BorderPane {
             dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
             SignInScene content=new SignInScene();
             content.getNameText().textProperty().addListener((observable, oldValue, newValue) -> {
-                content.setNameError(true);
+                content.setNameError(new InputValidation().validName(newValue));
             });
             content.getPasswordText().textProperty().addListener((observable, oldValue, newValue) -> {
-                content.setPasswordError(true);
+                content.setPasswordError(new InputValidation().validPassword(newValue));
             });
             dialog.getDialogPane().setContent(content);
             dialog.setResultConverter(dialogButton -> {
@@ -55,10 +60,16 @@ public class SignableScene extends BorderPane {
             dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
             SignUpScene content=new SignUpScene();
             content.getNameText().textProperty().addListener((observable, oldValue, newValue) -> {
-                content.setNameError(true);
+                content.setNameError(new InputValidation().validName(newValue));
             });
             content.getPasswordText().textProperty().addListener((observable, oldValue, newValue) -> {
-                content.setPasswordError(true);
+                content.setPasswordError(new InputValidation().validPassword(newValue));
+            });
+            content.getConfirmText().textProperty().addListener((observable, oldValue, newValue) -> {
+                content.setConfirmError(new InputValidation().validConfirm(content.getPasswordText().getText(), newValue));
+            });
+            content.getAdditionalText().textProperty().addListener((observable, oldValue, newValue) -> {
+                content.setAdditionalError(new InputValidation().validManager(newValue));
             });
             dialog.getDialogPane().setContent(content);
             dialog.setResultConverter(dialogButton -> {
@@ -76,5 +87,25 @@ public class SignableScene extends BorderPane {
                 presenter.register(result.get());
             });
         });
+    }
+
+    @Override
+    public void showNameError() {
+
+    }
+
+    @Override
+    public void showPasswordError() {
+
+    }
+
+    @Override
+    public void showAdditionalPasswordError() {
+
+    }
+
+    @Override
+    public void showConfirmError() {
+
     }
 }
