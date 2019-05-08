@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import model.RandomImageGenerator;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /*
 bd version
@@ -58,5 +59,21 @@ public class Cinema implements Serializable, IRandomShow {
     @Override
     public Image getImage() {
         return RandomImageGenerator.getInstance().getImage();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cinema cinema = (Cinema) o;
+        return id == cinema.id &&
+                Objects.equals(name, cinema.name) &&
+                Objects.equals(address, cinema.address);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, address);
     }
 }

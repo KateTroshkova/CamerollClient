@@ -5,6 +5,7 @@ import data.Hall;
 import data.Movie;
 import data.Session;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class PreviewScenePresenter extends BasePresenter<IMVPContract.IPreviewScene> {
@@ -34,6 +35,8 @@ public class PreviewScenePresenter extends BasePresenter<IMVPContract.IPreviewSc
     private Cinema victory = new Cinema("Победа", "ул. Ленина, 7, Новосибирск");
     private Cinema kino = new Cinema("Киносити", "ул. Фрунзе, 238, Новосибирск");
 
+    private Movie loadMovie=null;
+    private Cinema loadCinema=null;
 
     private String pattern1="8;10;0;0;0;0;0;0;0;0;-2;0;0;0;0;0;0;0;0;0;-2;0;0;0;0;0;0;0;0;0;-2;0;0;0;0;0;0;0;0;0;-2;0;0;0;0;-2;-2;0;0;0;-2;0;0;0;0;-2;-2;0;0;0;-2;0;0;0;0;-2;-2;0;0;0;-2;0;0;0;0;0;0;0;0;0;-2;0;0;0;0;0;0;0;0;0;-2;0";
     private String pattern2="6;6;-2;-2;-2;-2;0;0;0;-2;-2;-2;0;0;0;-2;0;0;0;0;0;-2;0;0;0;0;0;-2;0;0;0;0;0;0;0;0;0;0";
@@ -92,17 +95,43 @@ public class PreviewScenePresenter extends BasePresenter<IMVPContract.IPreviewSc
         sessions[17]=new Session(lion, kino, hall7, "20.00", "10.08.2019", 250);
         sessions[18]=new Session(king, victory, hall6, "10.00", "15.07.2019", 300);
         sessions[19]=new Session(king, victory, hall8, "10.00", "15.07.2019", 300);
-        for(Session s:sessions){
+
+        ArrayList<Session> result=new ArrayList<>();
+        for(Session session:sessions){
+            if (loadMovie!=null) {
+                if (session.getMovie().equals(loadMovie)){
+                    result.add(session);
+                }
+            }
+            if (loadCinema!=null){
+                if (session.getCinema().equals(loadCinema)){
+                    result.add(session);
+                }
+            }
+        }
+        Session[] r=new Session[result.size()];
+        for(int i=0; i<result.size(); i++){
+            r[i]=result.get(i);
+        }
+        for(Session s:result){
             uniqueMovie.add(s.getMovie().getName());
             uniqueCinema.add(s.getCinema().getName());
             uniqueDate.add(s.getDate());
             uniqueTime.add(s.getTime());
         }
-        getView().onSessionDataReady(sessions);
+        getView().onSessionDataReady(r);
         getView().setMovies(uniqueMovie);
         getView().setCinemas(uniqueCinema);
         getView().setDates(uniqueDate);
         getView().setTimes(uniqueTime);
+    }
+
+    public void alertMovie(Movie movie){
+        this.loadMovie=movie;
+    }
+
+    public void alertCinema(Cinema cinema){
+        this.loadCinema=cinema;
     }
 
     public void onFilterClick(String movie, String cinema, String hall, String time, String date){

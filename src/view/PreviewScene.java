@@ -77,6 +77,12 @@ public class PreviewScene extends SignableScene implements IMVPContract.IPreview
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+        if (mData!=null){
+            presenter.alertMovie(mData);
+        }
+        else{
+            presenter.alertCinema(cData);
+        }
         presenter.attachView(this);
         presenter.viewIsReady();
         registerMenuAction();
