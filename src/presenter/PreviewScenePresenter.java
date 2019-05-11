@@ -51,6 +51,8 @@ public class PreviewScenePresenter extends BasePresenter<IMVPContract.IPreviewSc
     private Hall hall7=new Hall();
     private Hall hall8=new Hall();
 
+    Session sessions[];
+
 
     @Override
     public void viewIsReady() {
@@ -74,7 +76,7 @@ public class PreviewScenePresenter extends BasePresenter<IMVPContract.IPreviewSc
         hall7.setName("Зал 7");
         hall8.setPlacePattern(pattern4);
         hall8.setName("Зал 8");
-        Session sessions[]=new Session[20];
+        sessions=new Session[20];
         sessions[0]=new Session(avengers, avrora, hall1, "12.00", "29.04.2019", 400);
         sessions[1]=new Session(avengers, park, hall2, "12.00", "29.04.2019", 300);
         sessions[2]=new Session(avengers, park, hall5, "15.00", "29.04.2019", 300);
@@ -135,7 +137,35 @@ public class PreviewScenePresenter extends BasePresenter<IMVPContract.IPreviewSc
     }
 
     public void onFilterClick(String movie, String cinema, String hall, String time, String date){
-
+        ArrayList<Session> data=new ArrayList<>();
+        for (Session session:sessions){
+            if ((movie.isEmpty() ||session.getMovie().getName().equals(movie)) &&
+                    (cinema.isEmpty() ||session.getCinema().getName().equals(cinema)) &&
+                    (hall.isEmpty() ||session.getHall().getName().equals(hall)) &&
+                    (time.isEmpty() ||session.getTime().equals(time)) &&
+                    (date.isEmpty() ||session.getDate().equals(date))){
+                data.add(session);
+            }
+        }
+        Session[] res=new Session[data.size()];
+        for (int i=0; i<data.size(); i++){
+            res[i]=data.get(i);
+        }
+        HashSet<String> uniqueMovie=new HashSet<>();
+        HashSet<String> uniqueCinema=new HashSet<>();
+        HashSet<String> uniqueDate=new HashSet<>();
+        HashSet<String> uniqueTime=new HashSet<>();
+        for(Session s:res){
+            uniqueMovie.add(s.getMovie().getName());
+            uniqueCinema.add(s.getCinema().getName());
+            uniqueDate.add(s.getDate());
+            uniqueTime.add(s.getTime());
+        }
+        getView().onSessionDataReady(res);
+        getView().setMovies(uniqueMovie);
+        getView().setCinemas(uniqueCinema);
+        getView().setDates(uniqueDate);
+        getView().setTimes(uniqueTime);
     }
 
     public void signInClick(){

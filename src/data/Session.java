@@ -2,6 +2,7 @@ package data;
 
 import java.io.Serializable;
 import java.util.Comparator;
+import java.util.Objects;
 
 /*
 bd version
@@ -92,8 +93,23 @@ public class Session implements Serializable, Comparator<Session> {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Session session = (Session) o;
+        return id == session.id &&
+                price == session.price &&
+                Objects.equals(movie.getName(), session.movie.getName()) &&
+                Objects.equals(cinema.getName(), session.cinema.getName()) &&
+                Objects.equals(hall.getName(), session.hall.getName()) &&
+                Objects.equals(time, session.time) &&
+                Objects.equals(date, session.date);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, movie, cinema, hall, time, date, price);
     }
 
     @Override

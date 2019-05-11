@@ -3,6 +3,7 @@ package view;
 import data.Cinema;
 import data.Movie;
 import data.Session;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -86,6 +87,13 @@ public class PreviewScene extends SignableScene implements IMVPContract.IPreview
         presenter.attachView(this);
         presenter.viewIsReady();
         registerMenuAction();
+        findButton.setOnAction(event -> {
+            presenter.onFilterClick(movieSort.getSelectionModel().getSelectedItem().toString(),
+                    cinemaSort.getSelectionModel().getSelectedItem().toString(),
+                    hallSort.getSelectionModel().getSelectedItem().toString(),
+                    timeSort.getSelectionModel().getSelectedItem().toString(),
+                    dateSort.getSelectionModel().getSelectedItem().toString());
+        });
     }
 
     @Override
