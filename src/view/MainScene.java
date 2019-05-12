@@ -61,12 +61,17 @@ public class MainScene extends SignableScene implements IMVPContract.IMainScene{
     @Override
     public void onMovieDataReady(Movie[] data) {
         this.mData=data;
-        initialize();
+        //initialize();
     }
 
     @Override
     public void onCinemaDataReady(Cinema[] data) {
         this.cData=data;
+        //initialize();
+    }
+
+    @Override
+    public void update() {
         initialize();
     }
 

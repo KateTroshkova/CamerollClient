@@ -99,7 +99,6 @@ public class PreviewScene extends SignableScene implements IMVPContract.IPreview
     @Override
     public void onSessionDataReady(Session[] data) {
         this.sData=data;
-        initialize();
     }
 
     @Override
@@ -135,6 +134,11 @@ public class PreviewScene extends SignableScene implements IMVPContract.IPreview
         Object[] sortedData=data.toArray();
         Arrays.sort(sortedData);
         timeSort.getItems().addAll(sortedData);
+    }
+
+    @Override
+    public void update() {
+        initialize();
     }
 
     @Override

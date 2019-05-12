@@ -4,6 +4,7 @@ import data.Cinema;
 import data.Movie;
 import data.Session;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import presenter.IMoveListener;
