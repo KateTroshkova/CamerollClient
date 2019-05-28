@@ -1,13 +1,11 @@
 package presenter;
 
 import data.Cinema;
-import data.Hall;
 import data.Movie;
 import data.Session;
+import data.User;
 import model.connection.Connection;
 import model.connection.RemoteRead;
-import org.w3c.dom.CDATASection;
-import request.GetMoviesRequest;
 import request.GetSessionRequest;
 
 import java.util.ArrayList;
@@ -17,6 +15,7 @@ public class PreviewScenePresenter extends BasePresenter<IMVPContract.IPreviewSc
 
     private Movie mData;
     private Cinema cData;
+    private Session[] sessions;
 
     @Override
     public void viewIsReady() {
@@ -39,35 +38,40 @@ public class PreviewScenePresenter extends BasePresenter<IMVPContract.IPreviewSc
     }
 
     public void onFilterClick(String movie, String cinema, String hall, String time, String date){
-       /** ArrayList<Session> data=new ArrayList<>();
+        ArrayList<Session> appropriateSession=new ArrayList<>();
         for (Session session:sessions){
-            if ((movie.isEmpty() ||session.getMovie().getName().equals(movie)) &&
-                    (cinema.isEmpty() ||session.getCinema().getName().equals(cinema)) &&
-                    (hall.isEmpty() ||session.getHall().getName().equals(hall)) &&
-                    (time.isEmpty() ||session.getTime().equals(time)) &&
-                    (date.isEmpty() ||session.getDate().equals(date))){
-                data.add(session);
+            if ((movie==null ||session.getMovie().getName().equals(movie)) &&
+                    (cinema==null ||session.getCinema().getName().equals(cinema)) &&
+                    (hall==null ||session.getHall().getName().equals(hall)) &&
+                    (time==null ||session.getTime().equals(time)) &&
+                    (date==null ||session.getDate().equals(date))){
+                appropriateSession.add(session);
             }
         }
-        Session[] res=new Session[data.size()];
-        for (int i=0; i<data.size(); i++){
-            res[i]=data.get(i);
+        Session[] res=new Session[appropriateSession.size()];
+        for (int i=0; i<appropriateSession.size(); i++){
+            res[i]=appropriateSession.get(i);
         }
+        getView().onSessionDataReady(res);
+
         HashSet<String> uniqueMovie=new HashSet<>();
         HashSet<String> uniqueCinema=new HashSet<>();
         HashSet<String> uniqueDate=new HashSet<>();
         HashSet<String> uniqueTime=new HashSet<>();
+        HashSet<String> uniqueHall=new HashSet<>();
         for(Session s:res){
             uniqueMovie.add(s.getMovie().getName());
             uniqueCinema.add(s.getCinema().getName());
             uniqueDate.add(s.getDate());
             uniqueTime.add(s.getTime());
+            uniqueHall.add(s.getHall().getName());
         }
-        getView().onSessionDataReady(res);
         getView().setMovies(uniqueMovie);
         getView().setCinemas(uniqueCinema);
         getView().setDates(uniqueDate);
-        getView().setTimes(uniqueTime);*/
+        getView().setTimes(uniqueTime);
+        getView().setHalls(uniqueHall);
+        getView().update();
     }
 
     @Override
@@ -82,20 +86,35 @@ public class PreviewScenePresenter extends BasePresenter<IMVPContract.IPreviewSc
 
     @Override
     public void onGetSession(Session[] data) {
+        this.sessions=data;
         HashSet<String> uniqueMovie=new HashSet<>();
         HashSet<String> uniqueCinema=new HashSet<>();
         HashSet<String> uniqueDate=new HashSet<>();
         HashSet<String> uniqueTime=new HashSet<>();
+        HashSet<String> uniqueHall=new HashSet<>();
         for(Session s:data){
             uniqueMovie.add(s.getMovie().getName());
             uniqueCinema.add(s.getCinema().getName());
             uniqueDate.add(s.getDate());
             uniqueTime.add(s.getTime());
+            uniqueHall.add(s.getHall().getName());
         }
         getView().onSessionDataReady(data);
         getView().setMovies(uniqueMovie);
         getView().setCinemas(uniqueCinema);
         getView().setDates(uniqueDate);
         getView().setTimes(uniqueTime);
+        getView().setHalls(uniqueHall);
+    }
+
+
+    @Override
+    public void onUser(User user) {
+
+    }
+
+    @Override
+    public void onError(String error) {
+
     }
 }

@@ -1,13 +1,9 @@
 package model.connection;
 
-import javafx.application.Platform;
 import presenter.IMVPContract;
-import request.GetMoviesRequest;
 import request.Request;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class Connection {
@@ -30,6 +26,27 @@ public class Connection {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void stop(){
+        in.stopRead();
+        out.stopWrite();
+    }
+
+    public void removeListener(RemoteRead.OnReaderListener listener){
+        in.removeListener(listener);
+    }
+
+    public void removePreviewController(){
+        in.removePreviewController();
+    }
+
+    public void setSignController(IMVPContract.ISignScene controller){
+        in.setSignController(controller);
+    }
+
+    public void setChooseController(IMVPContract.IChooseScene controller){
+        in.setChooseController(controller);
     }
 
     public void setMainController(IMVPContract.IMainScene controller){

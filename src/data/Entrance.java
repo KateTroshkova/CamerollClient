@@ -1,6 +1,8 @@
 package data;
 
-public class Entrance {
+import java.io.Serializable;
+
+public class Entrance implements Serializable{
 
     private String name;
     private String password;

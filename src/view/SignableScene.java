@@ -3,11 +3,9 @@ package view;
 import data.Entrance;
 import data.Registration;
 import javafx.fxml.FXML;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import model.InputValidation;
 import presenter.IMVPContract;
 import presenter.SignPresenter;
@@ -28,6 +26,7 @@ public class SignableScene extends BorderPane implements IMVPContract.ISignScene
 
     protected void registerMenuAction(){
         presenter=new SignPresenter();
+        presenter.attachView(this);
         presenter.viewIsReady();
         signInButton.setOnAction(event -> {
             Dialog<Entrance> dialog = new Dialog<>();
@@ -35,12 +34,8 @@ public class SignableScene extends BorderPane implements IMVPContract.ISignScene
             ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
             dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
             SignInScene content=new SignInScene();
-            content.getNameText().textProperty().addListener((observable, oldValue, newValue) -> {
-                content.setNameError(new InputValidation().validName(newValue));
-            });
-            content.getPasswordText().textProperty().addListener((observable, oldValue, newValue) -> {
-                content.setPasswordError(new InputValidation().validPassword(newValue));
-            });
+            content.getNameText().textProperty().addListener((observable, oldValue, newValue) -> content.setNameError(new InputValidation().validName(newValue)));
+            content.getPasswordText().textProperty().addListener((observable, oldValue, newValue) -> content.setPasswordError(new InputValidation().validPassword(newValue)));
             dialog.getDialogPane().setContent(content);
             dialog.setResultConverter(dialogButton -> {
                 if (dialogButton == loginButtonType) {
@@ -49,9 +44,7 @@ public class SignableScene extends BorderPane implements IMVPContract.ISignScene
                 return null;
             });
             Optional<Entrance> result = dialog.showAndWait();
-            result.ifPresent(usernamePassword -> {
-                presenter.enter(result.get());
-            });
+            result.ifPresent(usernamePassword -> presenter.enter(result.get()));
         });
         signUpButton.setOnAction(event -> {
             Dialog<Registration> dialog = new Dialog<>();
@@ -59,17 +52,16 @@ public class SignableScene extends BorderPane implements IMVPContract.ISignScene
             ButtonType loginButtonType = new ButtonType("Sign up", ButtonBar.ButtonData.OK_DONE);
             dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
             SignUpScene content=new SignUpScene();
-            content.getNameText().textProperty().addListener((observable, oldValue, newValue) -> {
-                content.setNameError(new InputValidation().validName(newValue));
-            });
-            content.getPasswordText().textProperty().addListener((observable, oldValue, newValue) -> {
-                content.setPasswordError(new InputValidation().validPassword(newValue));
-            });
-            content.getConfirmText().textProperty().addListener((observable, oldValue, newValue) -> {
-                content.setConfirmError(new InputValidation().validConfirm(content.getPasswordText().getText(), newValue));
-            });
+            content.getNameText().textProperty().addListener((observable, oldValue, newValue) -> content.setNameError(new InputValidation().validName(newValue)));
+            content.getPasswordText().textProperty().addListener((observable, oldValue, newValue) -> content.setPasswordError(new InputValidation().validPassword(newValue)));
+            content.getConfirmText().textProperty().addListener((observable, oldValue, newValue) -> content.setConfirmError(new InputValidation().validConfirm(content.getPasswordText().getText(), newValue)));
             content.getAdditionalText().textProperty().addListener((observable, oldValue, newValue) -> {
-                content.setAdditionalError(new InputValidation().validManager(newValue));
+                boolean valid = new InputValidation().validManager(newValue);
+                content.setAdditionalError(valid);
+                if (valid){
+                    //content.getAdditionalText().setVisible(false);
+                    content.getIsManagerCheck().setSelected(false);
+                }
             });
             dialog.getDialogPane().setContent(content);
             dialog.setResultConverter(dialogButton -> {
@@ -83,29 +75,21 @@ public class SignableScene extends BorderPane implements IMVPContract.ISignScene
                 return null;
             });
             Optional<Registration> result = dialog.showAndWait();
-            result.ifPresent(usernamePassword -> {
-                presenter.register(result.get());
-            });
+            result.ifPresent(usernamePassword -> presenter.register(result.get()));
         });
     }
 
     @Override
-    public void showNameError() {
-
+    public void showError(String error) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error alert");
+        VBox dialogPaneContent = new VBox();
+        Label label = new Label("Stack Trace:");
+        TextArea textArea = new TextArea();
+        textArea.setText(error);
+        dialogPaneContent.getChildren().addAll(label, textArea);
+        alert.getDialogPane().setContent(dialogPaneContent);
+        alert.showAndWait();
     }
 
-    @Override
-    public void showPasswordError() {
-
-    }
-
-    @Override
-    public void showAdditionalPasswordError() {
-
-    }
-
-    @Override
-    public void showConfirmError() {
-
-    }
 }

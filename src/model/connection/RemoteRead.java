@@ -3,9 +3,9 @@ package model.connection;
 import data.Cinema;
 import data.Movie;
 import data.Session;
+import data.User;
 import javafx.application.Platform;
 import presenter.IMVPContract;
-import view.MainScene;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,14 +17,19 @@ public class RemoteRead implements Runnable {
     private ObjectInputStream in;
     private IMVPContract.IMainScene mainController;
     private IMVPContract.IPreviewScene previewController;
+    private IMVPContract.IChooseScene chooseController;
+    private IMVPContract.ISignScene signController;
+    private boolean isRunning=true;
+    private ArrayList<OnReaderListener> listeners;
 
     public interface OnReaderListener{
         void onGetMovie(Movie[] data);
         void onGetCinema(Cinema[] data);
         void onGetSession(Session[] data);
+        void onUser(User user);
+        void onError(String error);
     }
 
-    private ArrayList<OnReaderListener> listeners;
 
     public RemoteRead(Socket client){
         try {
@@ -43,25 +48,42 @@ public class RemoteRead implements Runnable {
         this.previewController=controller;
     }
 
+    public void setChooseController(IMVPContract.IChooseScene controller){
+        this.chooseController=controller;
+    }
+
+    public void setSignController(IMVPContract.ISignScene controller){
+        this.signController=controller;
+    }
+
     public void addListener(OnReaderListener listener){
         this.listeners.add(listener);
+    }
+
+    public void stopRead(){
+        isRunning=false;
+    }
+
+    public void removePreviewController(){
+        previewController=null;
+    }
+
+    public void removeListener(OnReaderListener listener){
+        this.listeners.remove(listener);
     }
 
     @Override
     public void run() {
         try {
-            while (true) {
+            while (isRunning) {
                 int code=in.readInt();
                 switch (code){
                     case 0:{
                         Movie[] movies= (Movie[]) in.readObject();
-                        System.out.println(movies);
                         for(OnReaderListener listener:listeners){
                             listener.onGetMovie(movies);
                         }
-                        Platform.runLater(() -> {
-                            mainController.update();
-                        });
+                        Platform.runLater(() -> mainController.update());
                         break;
                     }
                     case 1:{
@@ -69,27 +91,56 @@ public class RemoteRead implements Runnable {
                         for(OnReaderListener listener:listeners){
                             listener.onGetCinema(cinemas);
                         }
-                        Platform.runLater(() -> {
-                            mainController.update();
-                        });
+                        Platform.runLater(() -> mainController.update());
                         break;
                     }
                     case 2:{
                         Session[] sessions= (Session[]) in.readObject();
-                        System.out.println(sessions);
                         for(OnReaderListener listener:listeners){
                             listener.onGetSession(sessions);
                         }
                         Platform.runLater(() -> {
-                            previewController.update();
+                            if (previewController!=null) {
+                                previewController.update();
+                            }
                         });
                         break;
                     }
+                    case 3:{
+                        User user= (User) in.readObject();
+                        for(OnReaderListener listener:listeners){
+                            listener.onUser(user);
+                        }
+                        break;
+                    }
+                    case 4:{
+                        int e = in.readInt();
+                        String error="Неизвестная ошибка";
+                        for(OnReaderListener listener:listeners){
+                            switch (e){
+                                case 1000:{
+                                    error="Возникли проблемы при доступе в систему. Возможно, вы ввели неверные данные";
+                                    break;
+                                }
+                                case 2000:{
+                                    error="Невозможная операция. Место уже занято.";
+                                    break;
+                                }
+                            }
+                            listener.onError(error);
+                        }
+                        String finalError = error;
+                        Platform.runLater(() -> signController.showError(finalError));
+                        break;
+                    }
+                    case 5:{
+                        Session session= (Session) in.readObject();
+                        Platform.runLater(() -> chooseController.update(session));
+                        break;
+                    }
                 }
-                //Movie movie = (Movie) in.readObject();
-                //System.out.println(movie);
             }
-        } catch (IOException e) {
+        } catch (IOException ignored) {
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

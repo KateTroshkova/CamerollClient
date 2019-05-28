@@ -9,4 +9,6 @@ public interface IMoveListener {
     void mainToPreview(Movie movie);
     void mainToPreview(Cinema cinema);
     void previewToChoose(Session session);
+    void chooseToPreview();
+    void previewToMain();
 }

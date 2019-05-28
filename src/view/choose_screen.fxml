@@ -22,7 +22,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem fx:id="backButton" mnemonicParsing="false" text="Back" />
                </items>
                <items>
                   <MenuItem fx:id="signInButton" mnemonicParsing="false" text="Sign In" />
@@ -34,7 +34,4 @@
          </menus>
       </MenuBar>
    </top>
-   <right>
-      <Label text="Label" BorderPane.alignment="CENTER" />
-   </right>
 </fx:root>

@@ -1,6 +1,5 @@
 package model.connection;
 
-import request.GetMoviesRequest;
 import request.Request;
 
 import java.io.IOException;
@@ -11,9 +10,9 @@ import java.util.ArrayList;
 public class RemoteWrite extends Thread {
 
     private ObjectOutputStream out;
-    private int count=0;
     private boolean needToWrite=false;
     private ArrayList<Request> request;
+    private boolean isRunning=true;
 
     public RemoteWrite(Socket client){
         request=new ArrayList<>();
@@ -29,9 +28,13 @@ public class RemoteWrite extends Thread {
         needToWrite=true;
     }
 
+    public void stopWrite(){
+        isRunning=false;
+    }
+
     @Override
     public void run() {
-        while (true) {
+        while (isRunning) {
             try {
                 if (needToWrite) {
                     for(Request request:this.request) {
@@ -44,9 +47,7 @@ public class RemoteWrite extends Thread {
                 else{
                     sleep(100);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }

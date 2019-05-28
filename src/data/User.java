@@ -9,7 +9,9 @@ password - text
 
 import javafx.scene.image.Image;
 
-public class User implements IRandomShow {
+import java.io.Serializable;
+
+public class User implements IRandomShow, Serializable {
     private long id;
     private String name;
     private String password;

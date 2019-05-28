@@ -3,7 +3,7 @@ package presenter;
 import data.Cinema;
 import data.Movie;
 import data.Session;
-import javafx.scene.control.ComboBox;
+import data.User;
 import model.connection.Connection;
 import model.connection.RemoteRead;
 import request.GetCinemasRequest;
@@ -31,6 +31,17 @@ public class MainScenePresenter extends BasePresenter<IMVPContract.IMainScene> i
 
     @Override
     public void onGetSession(Session[] data) {
+
+    }
+
+
+    @Override
+    public void onUser(User user) {
+
+    }
+
+    @Override
+    public void onError(String error) {
 
     }
 }

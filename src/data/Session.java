@@ -24,16 +24,18 @@ public class Session implements Serializable, Comparator<Session> {
     private String time;
     private String date;
     private int price;
+    private String pattern;
 
     public Session(){}
 
-    public Session(Movie movie, Cinema cinema, Hall hall, String time, String date, int price) {
+    public Session(Movie movie, Cinema cinema, Hall hall, String time, String date, int price, String pattern) {
         this.movie = movie;
         this.cinema = cinema;
         this.hall = hall;
         this.time = time;
         this.date = date;
         this.price = price;
+        this.pattern=pattern;
     }
 
     public long getId() {
@@ -92,6 +94,14 @@ public class Session implements Serializable, Comparator<Session> {
         this.price = price;
     }
 
+    public String getPattern() {
+        return pattern;
+    }
+
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,13 +113,14 @@ public class Session implements Serializable, Comparator<Session> {
                 Objects.equals(cinema.getName(), session.cinema.getName()) &&
                 Objects.equals(hall.getName(), session.hall.getName()) &&
                 Objects.equals(time, session.time) &&
-                Objects.equals(date, session.date);
+                Objects.equals(date, session.date) &&
+                Objects.equals(pattern, session.pattern);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, movie, cinema, hall, time, date, price);
+        return Objects.hash(id, movie, cinema, hall, time, date, price, pattern);
     }
 
     @Override

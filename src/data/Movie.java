@@ -29,6 +29,7 @@ public class Movie implements Serializable, IRandomShow {
     private String actors;
     private String genre;
     private String country;
+    private String url;
 
     public Movie(){
 
@@ -90,9 +91,17 @@ public class Movie implements Serializable, IRandomShow {
         this.country = country;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public Image getImage() {
-        return RandomImageGenerator.getInstance().getImage();
+        return new Image(url);
     }
 
     @Override

@@ -9,14 +9,6 @@ public abstract class BasePresenter<T extends IMVPView> implements IMVPPresenter
         this.view=view;
     }
 
-    @Override
-    public void detachView() {
-        view=null;
-    }
-
-    @Override
-    public void destroy() {}
-
     public T getView(){
         return view;
     }

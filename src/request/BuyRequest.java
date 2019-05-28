@@ -3,53 +3,27 @@ package request;
 import data.Session;
 import data.User;
 
-public class BuyRequest implements Request {
-
-    private User user;
-    private Session session;
-    private int x;
-    private int y;
+public class BuyRequest extends ChooseRequest {
 
     public BuyRequest(User user, Session session, int x, int y) {
-        this.user = user;
-        this.session = session;
-        this.x = x;
-        this.y = y;
+        super(user, session, x, y);
     }
 
     public BuyRequest(){
-
+        super();
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
+    @Override
+    public void updatePattern(){
+        String pattern=session.getPattern();
+        String[] data=pattern.split(";");
+        int width=Integer.valueOf(data[0]);
+        int height=Integer.valueOf(data[1]);
+        data[2+height*y+x]="-1";//+user.getId();
+        String result="";
+        for(String place:data){
+            result+=place+";";
+        }
+        session.setPattern(result);
     }
 }

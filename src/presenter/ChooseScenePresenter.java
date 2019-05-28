@@ -1,10 +1,14 @@
 package presenter;
 
-import data.PLACE_STATUS;
+import data.*;
 import model.Validation;
+import model.connection.Connection;
+import model.connection.RemoteRead;
+import request.BookRequest;
+import request.BuyRequest;
 import view.customView.SeatView;
 
-public class ChooseScenePresenter extends BasePresenter<IMVPContract.IChooseScene> {
+public class ChooseScenePresenter extends BasePresenter<IMVPContract.IChooseScene> implements RemoteRead.OnReaderListener {
     @Override
     public void viewIsReady() {
 
@@ -16,27 +20,46 @@ public class ChooseScenePresenter extends BasePresenter<IMVPContract.IChooseScen
             getView().openBuyDialog(seat);
         }
         else{
-            getView().showError("You need to be in system to buy a ticket");
+            getView().showLocalError("You need to be in system to buy a ticket");
         }
     }
 
-    public void buyClick(SeatView seat){
-        getView().updatePlace(seat.getData().getRow(), seat.getData().getColumn(), PLACE_STATUS.STATUS_TAKEN);
+    public void buyClick(Session session, int row, int column){
+        Connection.getInstance().setChooseController(getView());
+        Connection.getInstance().send(new BuyRequest(SystemState.getUser(), session, row, column));
     }
 
     public void cancelClick(SeatView seat){
         getView().updatePlace(seat.getData().getRow(), seat.getData().getColumn(), PLACE_STATUS.STATUS_FREE);
     }
 
-    public void bookClick(SeatView seat){
-        getView().updatePlace(seat.getData().getRow(), seat.getData().getColumn(), PLACE_STATUS.STATUS_BOOKED);
+    public void bookClick(Session session, int row, int column){
+        Connection.getInstance().setChooseController(getView());
+        Connection.getInstance().send(new BookRequest(SystemState.getUser(), session, row, column));
     }
 
-    public void signInClick(){
+    @Override
+    public void onGetMovie(Movie[] data) {
 
     }
 
-    public void signUpClick(){
+    @Override
+    public void onGetCinema(Cinema[] data) {
+
+    }
+
+    @Override
+    public void onGetSession(Session[] data) {
+
+    }
+
+    @Override
+    public void onUser(User user) {
+
+    }
+
+    @Override
+    public void onError(String error) {
 
     }
 }

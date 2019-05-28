@@ -1,9 +1,11 @@
 package presenter;
 
-import data.*;
+import data.Cinema;
+import data.Movie;
+import data.PLACE_STATUS;
+import data.Session;
 import view.customView.SeatView;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public interface IMVPContract {
@@ -12,8 +14,6 @@ public interface IMVPContract {
         void onMovieDataReady(Movie[] data);
         void onCinemaDataReady(Cinema[] data);
         void update();
-        void openSignInDialog();
-        void openSignUpDialog();
     }
 
     interface IPreviewScene extends IMVPView{
@@ -24,28 +24,19 @@ public interface IMVPContract {
         void setDates(HashSet<String> data);
         void setTimes(HashSet<String> data);
         void update();
-        void openSignInDialog();
-        void openSignUpDialog();
     }
 
     interface IChooseScene extends IMVPView{
         void openBuyDialog(SeatView seat);
         void markPlace(int row, int column);
         void updatePlace(int row, int column, PLACE_STATUS place_status);
-        void cancelMark();
-        void showError(String error);
-        void openSignInDialog();
-        void openSignUpDialog();
-        void closeDialog();
-        void blockBuyButton();
-        void enableBuyButton();
+        void update(Session data);
+        void setData(Session data);
+        void showLocalError(String error);
     }
 
     interface ISignScene extends IMVPView{
-        void showNameError();
-        void showPasswordError();
-        void showAdditionalPasswordError();
-        void showConfirmError();
+        void showError(String error);
     }
 
 }

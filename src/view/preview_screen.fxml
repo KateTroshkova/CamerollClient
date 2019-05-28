@@ -7,12 +7,12 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.ScrollPane?>
 <fx:root prefHeight="460.0" prefWidth="780.0" type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -21,7 +21,7 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem fx:id="backButton" mnemonicParsing="false" text="Back" />
                     </items>
                     <items>
                         <MenuItem fx:id="signInButton" mnemonicParsing="false" text="Sign In" />
@@ -57,7 +57,7 @@
          <center>
              <ScrollPane prefHeight="200.0" prefWidth="600.0" BorderPane.alignment="CENTER">
              <content>
-            <VBox fx:id="sessions" prefHeight="600.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
+            <FlowPane fx:id="sessions" prefHeight="600.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
              </content>
              </ScrollPane>
          </center>

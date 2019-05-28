@@ -1,20 +1,9 @@
 package view;
 
 import data.Cinema;
-import data.Entrance;
 import data.Movie;
-import data.Registration;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.MenuItem;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import presenter.IMVPContract;
 import presenter.IMoveListener;
@@ -24,15 +13,6 @@ import view.customView.MovieView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Optional;
-
-/*
-Общение с gui происходит через контроллер.
-Поля должны быть помечены FXML, чтобы связаться с разметкой.
-Поля должны иметь то же название, что и id разметки.
-Обновление экрана происходит только через initialize().
-Его можно вызывать из других методов.
- */
 
 public class MainScene extends SignableScene implements IMVPContract.IMainScene{
 
@@ -75,22 +55,12 @@ public class MainScene extends SignableScene implements IMVPContract.IMainScene{
         initialize();
     }
 
-    @Override
-    public void openSignInDialog() {
-
-    }
-
-    @Override
-    public void openSignUpDialog() {
-
-    }
-
     public void addMoveListener(IMoveListener listener){
         listeners.add(listener);
     }
 
     @FXML
-    public void initialize(){
+    private void initialize(){
         if (mData==null && cData==null) {
             presenter = new MainScenePresenter();
             presenter.attachView(this);
@@ -99,10 +69,10 @@ public class MainScene extends SignableScene implements IMVPContract.IMainScene{
         else {
             movies.getChildren().clear();
             if (mData!=null) {
-                for (int i = 0; i < mData.length; i++) {
-                    MovieView view=new MovieView(mData[i]);
+                for (Movie aMData : mData) {
+                    MovieView view = new MovieView(aMData);
                     view.setOnMouseClicked(event -> {
-                        for(IMoveListener listener:listeners){
+                        for (IMoveListener listener : listeners) {
                             listener.mainToPreview(view.getData());
                         }
                     });
@@ -111,10 +81,10 @@ public class MainScene extends SignableScene implements IMVPContract.IMainScene{
             }
             cinemas.getChildren().clear();
             if (cData!=null) {
-                for (int i = 0; i < cData.length; i++) {
-                    CinemaView view=new CinemaView(cData[i]);
+                for (Cinema aCData : cData) {
+                    CinemaView view = new CinemaView(aCData);
                     view.setOnMouseClicked(event -> {
-                        for(IMoveListener listener:listeners){
+                        for (IMoveListener listener : listeners) {
                             listener.mainToPreview(view.getData());
                         }
                     });

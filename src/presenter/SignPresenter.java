@@ -1,36 +1,52 @@
 package presenter;
 
-import data.Entrance;
-import data.Registration;
-import data.SystemState;
-import data.User;
+import data.*;
 import model.connection.Connection;
 import model.connection.RemoteRead;
-import model.connection.RemoteWrite;
-import request.GetMoviesRequest;
+import request.SignInRequest;
+import request.SignUpRequest;
 
-import java.io.IOException;
-import java.net.Socket;
-
-public class SignPresenter extends BasePresenter<IMVPContract.ISignScene> {
+public class SignPresenter extends BasePresenter<IMVPContract.ISignScene> implements RemoteRead.OnReaderListener{
     @Override
     public void viewIsReady() {
 
     }
 
     public void register(Registration registration){
-        Connection.getInstance();
-        /**User user=new User();
-        user.setName(registration.getName());
-        user.setPassword(registration.getPassword());
-        user.setManager(registration.isManager());
-        SystemState.setUser(user);*/
+        Connection.getInstance().addReadListener(this);
+        Connection.getInstance().setSignController(getView());
+        Connection.getInstance().send(new SignUpRequest(registration));
     }
 
     public void enter(Entrance entrance){
-        User user=new User();
-        user.setName(entrance.getName());
-        user.setPassword(entrance.getPassword());
+        Connection.getInstance().addReadListener(this);
+        Connection.getInstance().setSignController(getView());
+        Connection.getInstance().send(new SignInRequest(entrance));
+    }
+
+    @Override
+    public void onGetMovie(Movie[] data) {
+
+    }
+
+    @Override
+    public void onGetCinema(Cinema[] data) {
+
+    }
+
+    @Override
+    public void onGetSession(Session[] data) {
+
+    }
+
+
+    @Override
+    public void onUser(User user) {
         SystemState.setUser(user);
+    }
+
+    @Override
+    public void onError(String error) {
+        SystemState.setUser(null);
     }
 }

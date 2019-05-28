@@ -1,16 +1,11 @@
 package view.customView;
 
-import data.Cinema;
-import data.Movie;
 import data.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import res.R;
 
 import java.io.IOException;
 
@@ -43,9 +38,13 @@ public class SessionView extends BorderPane{
         initialize();
     }
 
+    public Session getData() {
+        return data;
+    }
+
     @FXML
     private void initialize(){
-        image.setImage(data.getCinema().getImage());
+        image.setImage(data.getMovie().getImage());
         movieInfo.setText(data.getMovie().getName());
         cinemaInfo.setText(data.getCinema().getName()+"\n"+data.getHall().getName());
         timeInfo.setText(data.getDate()+"\n"+data.getTime());

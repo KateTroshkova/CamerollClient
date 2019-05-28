@@ -5,15 +5,17 @@ import data.Place;
 import data.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import model.Validation;
 import presenter.ChooseScenePresenter;
 import presenter.IMVPContract;
+import presenter.IMoveListener;
 import view.customView.SeatView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class ChooseScene extends SignableScene implements IMVPContract.IChooseScene{
@@ -21,68 +23,102 @@ public class ChooseScene extends SignableScene implements IMVPContract.IChooseSc
     @FXML
     private AnchorPane hallLayout;
 
+    @FXML
+    private MenuItem backButton;
+
     private Session data;
 
     private ChooseScenePresenter presenter;
 
     private SeatView[][] seats;
+    private ArrayList<IMoveListener> listeners;
 
     public ChooseScene(Session session){
         this.data=session;
-        presenter=new ChooseScenePresenter();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("choose_screen.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        listeners=new ArrayList<>();
+            presenter=new ChooseScenePresenter();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("choose_screen.fxml"));
+            fxmlLoader.setRoot(this);
+            fxmlLoader.setController(this);
+            try {
+                fxmlLoader.load();
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
+            }
         initialize();
         registerMenuAction();
+        backButton.setOnAction(event -> {
+            for(IMoveListener listener:listeners){
+                listener.chooseToPreview();
+            }
+        });
         presenter.attachView(this);
         presenter.viewIsReady();
     }
 
+    @Override
+    public void setData(Session data){
+        this.data=data;
+    }
+
+    @Override
+    public void showLocalError(String error) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error alert");
+        VBox dialogPaneContent = new VBox();
+        Label label = new Label("Stack Trace:");
+        TextArea textArea = new TextArea();
+        textArea.setText(error);
+        dialogPaneContent.getChildren().addAll(label, textArea);
+        alert.getDialogPane().setContent(dialogPaneContent);
+        alert.showAndWait();
+    }
+
+    public void addMoveListener(IMoveListener listener){
+        listeners.add(listener);
+    }
+
     @FXML
     private void initialize(){
-        String pattern[]=data.getHall().getPlacePattern().split(";");
-        int width=Integer.valueOf(pattern[0]);
-        int height=Integer.valueOf(pattern[1]);
-        seats=new SeatView[height][width];
-        int count=2;
-        for(int i=0; i<width; i++){
-            for(int j=0; j<height; j++){
-                Place place=null;
-                switch(pattern[count]){
-                    case "-2":{
-                        place=new Place(j*80, i*80, PLACE_STATUS.STATUS_NOT_EXIST);
-                        break;
-                    }
-                    case "-1":{
-                        place=new Place(j*80, i*80, PLACE_STATUS.STATUS_TAKEN);
-                        break;
-                    }
-                    case "0":{
-                        place=new Place(j*80, i*80, PLACE_STATUS.STATUS_FREE);
-                        break;
-                    }
-                    default:{
-                        place=new Place(j*80, i*80, PLACE_STATUS.STATUS_BOOKED);
-                        break;
+        if (data!=null) {
+            String pattern[] = data.getPattern().split(";");
+            int width = Integer.valueOf(pattern[0]);
+            int height = Integer.valueOf(pattern[1]);
+            seats = new SeatView[height][width];
+            int count = 2;
+            for (int i = 0; i < width; i++) {
+                for (int j = 0; j < height; j++) {
+                    Place place;
+                    if (count<pattern.length) {
+                        switch (pattern[count]) {
+                            case "-2": {
+                                place = new Place(j * 80, i * 80, PLACE_STATUS.STATUS_NOT_EXIST);
+                                break;
+                            }
+                            case "-1": {
+                                place = new Place(j * 80, i * 80, PLACE_STATUS.STATUS_TAKEN);
+                                break;
+                            }
+                            case "0": {
+                                place = new Place(j * 80, i * 80, PLACE_STATUS.STATUS_FREE);
+                                break;
+                            }
+                            default: {
+                                place = new Place(j * 80, i * 80, PLACE_STATUS.STATUS_BOOKED);
+                                break;
+                            }
+                        }
+                        SeatView view = new SeatView(place);
+                        view.setLayoutX(j * 80);
+                        view.setLayoutY(i * 80);
+                        seats[j][i] = view;
+                        if (place.isFree()) {
+                            view.setOnMouseClicked(event -> presenter.seatClick(view));
+                        }
+                        hallLayout.getChildren().add(view);
+                        count++;
                     }
                 }
-                SeatView view=new SeatView(place);
-                view.setLayoutX(j*80);
-                view.setLayoutY(i*80);
-                seats[j][i]=view;
-                if (place.isExist()) {
-                    view.setOnMouseClicked(event -> {
-                        presenter.seatClick(view);
-                    });
-                }
-                hallLayout.getChildren().add(view);
-                count++;
             }
         }
     }
@@ -107,12 +143,10 @@ public class ChooseScene extends SignableScene implements IMVPContract.IChooseSc
             buyDialog.getDialogPane().lookupButton(buy).setDisable(true);
         }
         Optional<ButtonType> option = buyDialog.showAndWait();
-        if (option.get() == null) {
-            presenter.cancelClick(seat);
-        } else if (option.get() == buy) {
-            presenter.buyClick(seat);
+        if (option.get() == buy) {
+            presenter.buyClick(data, seat.getData().getRow(), seat.getData().getColumn());
         } else if (option.get() == book) {
-            presenter.bookClick(seat);
+            presenter.bookClick(data, seat.getData().getRow(), seat.getData().getColumn());
         } else if (option.get() == cancel) {
             presenter.cancelClick(seat);
         } else {
@@ -132,37 +166,8 @@ public class ChooseScene extends SignableScene implements IMVPContract.IChooseSc
     }
 
     @Override
-    public void cancelMark() {
-
-    }
-
-    @Override
-    public void showError(String error) {
-
-    }
-
-    @Override
-    public void openSignInDialog() {
-
-    }
-
-    @Override
-    public void openSignUpDialog() {
-
-    }
-
-    @Override
-    public void closeDialog() {
-
-    }
-
-    @Override
-    public void blockBuyButton() {
-
-    }
-
-    @Override
-    public void enableBuyButton() {
-
+    public void update(Session data) {
+        this.data=data;
+        initialize();
     }
 }

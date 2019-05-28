@@ -1,6 +1,8 @@
 package data;
 
-public class Registration {
+import java.io.Serializable;
+
+public class Registration implements Serializable{
 
     private String name;
     private String password;
